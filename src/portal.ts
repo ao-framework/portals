@@ -1,5 +1,5 @@
 import { EventTable } from './interfaces/event.table.interface';
-import { PortalEvent } from './portal.event';
+import PortalEvent from './portal.event';
 import PortalEventHandler from './portal.event.handler';
 
 export default class Portal {

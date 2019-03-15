@@ -1,6 +1,6 @@
 import PortalEventHandler from "./portal.event.handler";
 
-export class PortalEvent {
+export default class PortalEvent {
     public type: string | symbol;
     public handlers: PortalEventHandler[] = [];
     public getHandlersIfAllowed(max: number) {
