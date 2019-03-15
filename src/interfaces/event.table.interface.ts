@@ -1,4 +1,4 @@
-import { PortalEvent } from "../portal.event";
+import PortalEvent from "../portal.event";
 
 export interface EventTable {
     [key: string]: PortalEvent;
