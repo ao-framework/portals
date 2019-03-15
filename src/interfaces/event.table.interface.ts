@@ -1,5 +1,5 @@
-import PortalEvent from "../portal.event";
+import PortalEventChannel from "../portal.event.channel";
 
 export interface EventTable {
-    [key: string]: PortalEvent;
+    [key: string]: PortalEventChannel;
 }

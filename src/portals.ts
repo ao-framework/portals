@@ -1,4 +1,5 @@
 import Portal from "./portal";
+import { PortalTable } from "./interfaces/portal.table.interface";
 
 /**
  * Definition of the Portals
@@ -8,7 +9,7 @@ export default class Portals {
     /**
      * Holds the table of portals
      */
-    private portals: { [key: string]: Portal } = {}
+    private portals: PortalTable = {}
 
     /**
      * Retrieves and/or creates a portal

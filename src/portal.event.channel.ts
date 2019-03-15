@@ -1,9 +1,9 @@
 import PortalEventHandler from "./portal.event.handler";
 
 /**
- * Definition of a portal event
+ * Definition of a portal event channel
  */
-export default class PortalEvent {
+export default class PortalEventChannel {
 
     /**
      * The name or type of the channel

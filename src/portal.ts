@@ -1,5 +1,5 @@
 import { EventTable } from './interfaces/event.table.interface';
-import PortalEvent from './portal.event';
+import PortalEventChannel from './portal.event.channel';
 import PortalEventHandler from './portal.event.handler';
 
 /**
@@ -19,7 +19,7 @@ export default class Portal {
      * Holds the table of the events
      * for lookup
      */
-    public events: EventTable = {}
+    private events: EventTable = {}
 
     /**
      * Creates the instance
@@ -32,8 +32,8 @@ export default class Portal {
      * @param name The of the event channel
      */
     private allocate(name: string | symbol) {
-        if (!(this.events[<string>name] instanceof PortalEvent)) {
-            this.events[<string>name] = new PortalEvent();
+        if (!(this.events[<string>name] instanceof PortalEventChannel)) {
+            this.events[<string>name] = new PortalEventChannel();
             this.events[<string>name].type = name;
         }
         return this.events[<string>name];
@@ -45,13 +45,13 @@ export default class Portal {
      * @param listener The handler to fire
      * @param context The context for the handler to fire in
      */
-    public addListener(event: string | symbol, listener: (...args: any[]) => void, context: any = null) {
-        let portalEvent = this.allocate(event);
+    public addListener(event: string | symbol, listener: (...args: any[]) => void, context?: any) {
+        let portalEventChannel = this.allocate(event);
         let handler = new PortalEventHandler();
         handler.count = null;
         handler.listener = listener;
         handler.context = context;
-        portalEvent.getHandlersIfAllowed(this.maxListeners).push(handler)
+        portalEventChannel.getHandlersIfAllowed(this.maxListeners).push(handler)
         return this;
     }
 
@@ -61,7 +61,7 @@ export default class Portal {
      * @param listener The handler to fire
      * @param context The context for the handler to fire in
      */
-    public on(event: string | symbol, listener: (...args: any[]) => void, context: any = null) {
+    public on(event: string | symbol, listener: (...args: any[]) => void, context?: any) {
         return this.addListener(event, listener, context);
     }
 
@@ -71,13 +71,13 @@ export default class Portal {
      * @param listener The handler to fire
      * @param context The context for the handler to fire in
      */
-    public once(event: string | symbol, listener: (...args: any[]) => void, context: any = null) {
-        let portalEvent = this.allocate(event);
+    public once(event: string | symbol, listener: (...args: any[]) => void, context?: any) {
+        let portalEventChannel = this.allocate(event);
         let handler = new PortalEventHandler();
         handler.count = 1;
         handler.listener = listener;
         handler.context = context;
-        portalEvent.getHandlersIfAllowed(this.maxListeners).push(handler)
+        portalEventChannel.getHandlersIfAllowed(this.maxListeners).push(handler)
         return this;
     }
 
@@ -87,13 +87,13 @@ export default class Portal {
      * @param listener The handler to fire
      * @param context The context that the handler will fire in
      */
-    public prependListener(event: string | symbol, listener: (...args: any[]) => void, context: any = null) {
-        let portalEvent = this.allocate(event);
+    public prependListener(event: string | symbol, listener: (...args: any[]) => void, context?: any) {
+        let portalEventChannel = this.allocate(event);
         let handler = new PortalEventHandler();
         handler.count = null;
         handler.listener = listener;
         handler.context = context;
-        portalEvent.getHandlersIfAllowed(this.maxListeners).unshift(handler)
+        portalEventChannel.getHandlersIfAllowed(this.maxListeners).unshift(handler)
         return this;
     }
 
@@ -103,13 +103,13 @@ export default class Portal {
      * @param listener The handler to fire
      * @param context The context that the handler will fire in
      */
-    public prependOnceListener(event: string | symbol, listener: (...args: any[]) => void, context: any = null) {
-        let portalEvent = this.allocate(event);
+    public prependOnceListener(event: string | symbol, listener: (...args: any[]) => void, context?: any) {
+        let portalEventChannel = this.allocate(event);
         let handler = new PortalEventHandler();
         handler.count = 1;
         handler.listener = listener;
         handler.context = context;
-        portalEvent.getHandlersIfAllowed(this.maxListeners).unshift(handler)
+        portalEventChannel.getHandlersIfAllowed(this.maxListeners).unshift(handler)
         return this;
     }
 
@@ -119,11 +119,11 @@ export default class Portal {
      * @param listener The listener to remove
      */
     public removeListener(event: string | symbol, listener: (...args: any[]) => void) {
-        let portalEvent = this.allocate(event);
-        let length = portalEvent.handlers.length;
+        let portalEventChannel = this.allocate(event);
+        let length = portalEventChannel.handlers.length;
         while (length--) {
-            if (portalEvent.handlers[length].listener === listener) {
-                portalEvent.handlers.splice(length, 1);
+            if (portalEventChannel.handlers[length].listener === listener) {
+                portalEventChannel.handlers.splice(length, 1);
             }
         }
         return this;
@@ -145,10 +145,10 @@ export default class Portal {
      * @param event 
      */
     public removeAllListeners(event?: string | symbol) {
-        if (event == void 0) {
-            this.events = {};
-        } else {
+        if (typeof event === "string" || typeof event === "symbol") {
             delete this.events[<string>event];
+        } else {
+            this.events = {}
         }
         return this;
     }
@@ -185,28 +185,26 @@ export default class Portal {
      * @param event The name of the event channel
      */
     public handlers(event: string | symbol): PortalEventHandler[] {
-        let portalEvent = this.allocate(event);
-        return portalEvent.handlers
+        let portalEventChannel = this.allocate(event);
+        return portalEventChannel.handlers
     }
 
     /**
      * Call a handlers for the event channel suppling
      * a list of the arguments
+     * 
      * @param event The name of the event channel
      * @param args The list of arguments to send
      */
     public emit(event: string | symbol, ...args: any[]) {
         let hadListeners: boolean = false;
-        let portalEvent = this.allocate(event);
-        portalEvent.handlers.forEach(handler => {
+        let portalEventChannel = this.allocate(event);
+        portalEventChannel.handlers.forEach(handler => {
             if (handler.count !== 0) {
                 hadListeners = true;
                 handler.listener.apply(handler.context, args);
                 if (typeof handler.count === "number" && handler.count > 0) {
                     handler.count--;
-                    if (handler.count === 0) {
-                        this.removeListener(event, handler.listener)
-                    }
                 }
             }
         })
@@ -226,7 +224,7 @@ export default class Portal {
      * @param event The name of the event channel
      */
     public listenerCount(event: string | symbol) {
-        let portalEvent = this.allocate(event);
-        return portalEvent.handlers.length;
+        let portalEventChannel = this.allocate(event);
+        return portalEventChannel.handlers.length;
     }
 }
