@@ -1,12 +1,18 @@
 import "jest";
-import PortalEventHandlerTests from "./portal.event.handler/@entry"
-import PortalEventChannelTests from "./portal.event.channel/@entry"
-import PortalTests from "./portal/@entry"
 import PortalsTests from "./portals/@entry"
+import EventbusTests from "./eventbus/eventbus/@entry"
+import EventbusChannelTests from "./eventbus/eventbus.channel/@entry"
+import EventbusHandlerTests from "./eventbus/eventbus.handler/@entry"
+import ServiceTests from "./service/service/@entry"
+import ServiceChannel from "./service/service.channel/@entry"
+import ServiceChannelTapTests from "./service/service.channel.tap/@entry"
 
-describe("portals", () => {
-    describe("portal.event.handler", PortalEventHandlerTests)
-    describe("portal.event.channel", PortalEventChannelTests)
-    describe("portal", PortalTests)
-    describe("portals", PortalsTests)
+describe("Portals", () => {
+    describe("Portals.base", PortalsTests)
+    describe("Eventbus", EventbusTests)
+    describe("EventbusChannel", EventbusChannelTests)
+    describe("EventbusHandler", EventbusHandlerTests)
+    describe("ServiceTests", ServiceTests)
+    describe("ServiceChannel", ServiceChannel)
+    describe("SeriviceChannelTapTests", ServiceChannelTapTests)
 })
