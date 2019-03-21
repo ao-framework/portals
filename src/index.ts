@@ -1,12 +1,14 @@
-import Portals from "./portals";
-import Portal from "./portal";
-import PortalEvent from "./portal.event.channel";
-import PortalEventHandler from "./portal.event.handler";
+import Portals from "./portals"
+import EventBus from "./eventbus/eventbus";
+import Service from "./service/service";
+import EventBusChannel from "./eventbus/eventbus.channel";
+import EventBusHandler from "./eventbus/eventbus.handler";
 
 export {
-    Portal,
-    PortalEvent,
-    PortalEventHandler
+    Service,
+    EventBus,
+    EventBusChannel,
+    EventBusHandler
 }
 
 export default Portals;

@@ -1,35 +1,62 @@
-import Portal from "./portal";
-import { PortalTable } from "./interfaces/portal.table.interface";
+import EventBus from './eventbus/eventbus';
+import { EventBusTable } from './interfaces/eventbus.interfaces';
+import { ServiceTable } from './interfaces/service.interfaces';
+import Service from './service/service';
 
 /**
- * Definition of the Portals
+ * The main definition for Portals
  */
 export default class Portals {
 
     /**
-     * Holds the table of portals
+     * Holds the key/value table for the event buses
      */
-    private portals: PortalTable = {}
+    private buses: EventBusTable = {}
 
     /**
-     * Retrieves and/or creates a portal
-     * @param name The name of the portal
+     * Holds the key/value table for the services
      */
-    public portal(name: string) {
-        if (!this.portals[name]) {
-            this.portals[name] = new Portal(name);
+    private services: ServiceTable = {}
+
+    /**
+     * Create and/or retrieve an event bus
+     * 
+     * @param name The name of the event bus
+     */
+    public bus(name: string): EventBus {
+        if (!this.buses[name]) {
+            this.buses[name] = new EventBus(name);
         }
-        return this.portals[name];
+        return this.buses[name];
     }
 
     /**
-     * Broadcast to all portals
-     * @param event 
-     * @param args 
+     * Create and/or retrieve a service
+     * 
+     * @param name The name of the service
      */
-    public broadcast(event: string | symbol, ...args: any[]) {
-        for (var iterator in this.portals) {
-            this.portals[iterator].emit(event, ...args);
+    public service(name: string) {
+        if (!this.services[name]) {
+            this.services[name] = new Service(name);
         }
+        return this.services[name]
+    }
+
+    /**
+     * Destroy a bus
+     * 
+     * @param name The name of the bus
+     */
+    public destroyBus(name: string) {
+        delete this.buses[name]
+    }
+
+    /**
+     * Destroy a service
+     * 
+     * @param name The name of the service
+     */
+    public destroyService(name: string) {
+        delete this.services[name];
     }
 }
