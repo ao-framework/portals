@@ -1,7 +1,7 @@
 {
     "name": "@ao-framework/portals",
     "version": "0.0.1",
-    "description": "{{description}}",
+    "description": "Portals is a library for dealing with asynchronous event-driven architecture in two ways. The first is the run-of-the-mill event bus with a different way of handling context. The second provides a way of declaring services with multiple endpoints for those that don’t like the “ping-pong” concept in all cases; endpoints are tappable, lockable, and securable.",
     "main": "dist/src/index",
     "types": "dist/src/index.d.ts",
     "scripts": {
