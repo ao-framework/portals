@@ -3,11 +3,7 @@ import { EventBusTable } from './interfaces/eventbus.interfaces';
 import { ServiceTable } from './interfaces/service.interfaces';
 import Service from './service/service';
 
-/**
- * The main definition for Portals
- */
 export default class Portals {
-
     /**
      * Holds the key/value table for the event buses
      */

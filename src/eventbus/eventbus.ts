@@ -2,12 +2,7 @@ import { EventBusChannelTable } from "../interfaces/eventbus.interfaces";
 import EventBusChannel from "./eventbus.channel";
 import EventBusHandler from "./eventbus.handler";
 
-
-/**
- * Definition of an event bus in portals
- */
 export default class EventBus {
-
     /**
      * The max number of listeners that can
      * subscribe to a channel

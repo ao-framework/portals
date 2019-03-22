@@ -2,11 +2,7 @@ import { ServiceChannelTable } from "../interfaces/service.interfaces";
 import ServiceChannel from "./service.channel";
 import ServiceChannelTap from "./service.channel.tap";
 
-/**
- * Definition of the service in Portals
- */
 export default class Service {
-
     /**
      * Holds a private table of service channels
      */

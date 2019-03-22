@@ -1,8 +1,4 @@
-/**
- * Definition of service tap
- */
 export default class ServiceChannelTap {
-
     /**
      * Holds the context for the handler
      */

@@ -1,11 +1,6 @@
 import EventBusHandler from "./eventbus.handler";
 
-
-/**
- * Definition of a portal event channel
- */
 export default class EventBusChannel {
-
     /**
      * The list of the handlers for the event
      */

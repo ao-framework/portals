@@ -1,8 +1,4 @@
-/**
- * Defintion of the portal event handler
- */
 export default class EventBusHandler {
-
     /**
      * The number of times that this listener
      * can be called

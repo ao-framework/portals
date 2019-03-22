@@ -1,8 +1,5 @@
 import ServiceChannelTap from "./service.channel.tap";
 
-/**
- * Definition of the a service channel in Portals
- */
 export default class ServiceChannel {
     /**
      * Holds the context for the handler
