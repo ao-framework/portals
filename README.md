@@ -3,13 +3,7 @@
 <b>Portals</b>
 </p>
 
-<div style="background: red; 
-background-image: linear-gradient(to right top, #c04a44, #cb4240, #d6383d, #e02b3a, #eb1238);
-color: white; 
-text-align: center;
-padding: 16px; 
-border-radius: 16px;
-margin-bottom: 16px;">
+<div style="background: red; color: white; text-align: center; padding: 16px; border-radius: 16px; margin-bottom: 16px; background-image: linear-gradient(to right top, #c04a44, #cb4240, #d6383d, #e02b3a, #eb1238);">
 Currently in early stages of development.
 </div>
 
